@@ -1,3 +1,7 @@
 define(function () {
-    return {};
+    return {
+        initialize: function() {
+            console.log('initialized');
+        }
+    };
 });
