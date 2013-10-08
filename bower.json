@@ -1,0 +1,24 @@
+{
+  "name": "spb calendar",
+  "version": "0.0.0",
+  "authors": [
+    "Mikhail Baranov <mikhail.baranov@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "requirejs": "2.*",
+    "require-jade": "*",
+    "lodash": "2.*",
+    "backbone": "1.*",
+    "require-stylus": "*",
+    "jquery": "2.*"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
