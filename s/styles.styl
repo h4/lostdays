@@ -1,0 +1,73 @@
+html
+  height 100%
+
+body
+  min-height 100%
+  margin 0
+  padding 0
+
+.app
+  position fixed
+  top 30px
+  right 30px
+  bottom 30px
+  left 30px
+
+.page
+  display flex
+  flex-direction column
+  height 100%
+  border solid 1px #b3b3b3
+  border-radius 2px
+
+.page-header
+  display flex
+  flex-direction row
+
+.page-title
+  flex 1 0 0
+  text-align center
+  order 1
+
+.pager-prev
+  order 0
+  display block
+
+.pager-next
+  order 3
+  display block
+
+.month
+  display flex
+  flex-grow 1
+  flex-direction column
+
+.weekdays
+  display flex
+  flex-direction row
+  height 30px
+
+.weekday
+  flex 1 0 0
+  text-align center
+
+.days
+  display flex
+  flex-grow 1
+  flex-direction column
+
+.week
+  display flex
+  flex-direction row
+  flex-grow 1
+
+.day
+  position relative
+  flex: 1 0 0
+  box-shadow inset 0 0 8px #999
+  border solid 1px #999
+
+.date
+  position absolute
+  top 2px
+  right 2px

@@ -17,7 +17,7 @@ require.config({
     },
     "map": {
         "*": {
-            "styl": "../libs/require-stylus/require-stylus",
+            "styl": "../../libs/require-stylus/require-stylus",
             "stylus": "../libs/require-stylus/stylus"
         }
     }
