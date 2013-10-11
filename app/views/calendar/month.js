@@ -2,8 +2,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'utils/monthGenerator',
     'jade!templates/calendar/month'
-], function ($, _, Backbone, template) {
+], function ($, _, Backbone, monthGenerator, template) {
     return Backbone.View.extend({
         el: 'section.month',
 
@@ -22,7 +23,7 @@ define([
             }
 
             htmlData = {
-                days: daysArr
+                days: monthGenerator.getMonth(2013, 9)
             };
 
             this.$el.html(template(htmlData));
