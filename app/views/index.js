@@ -2,14 +2,16 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'views/header',
     'jade!templates/layout',
     'styl!/s/styles'
-], function ($, _, Backbone, layoutTemplate) {
+], function ($, _, Backbone, HeaderView, layoutTemplate) {
 
     return Backbone.View.extend({
         el: '.app',
 
         render: function() {
+            var headerView;
             var data = [[], [], [], [], []];
             var i=31;
             while (i) {
@@ -17,6 +19,9 @@ define([
                 i--;
             }
             this.$el.html(layoutTemplate({days: data}));
+
+            headerView = new HeaderView();
+            headerView.render();
         }
     });
 });
