@@ -29,8 +29,21 @@ define([
         return weekNumber;
     }
 
-    function monthLastDay(month) {
-        return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+    function monthLastDay(year, month) {
+        var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        if (isLeap(year)) {
+            days[1] = 29;
+        }
+
+        return days[month];
+    }
+
+    function isLeap(year) {
+        if (year % 4 !== 0) {
+            return false;
+        }
+        return (year % 100 === 0) && (year % 400 === 0);
     }
 
     function MonthGenerator() {
@@ -58,7 +71,7 @@ define([
 
         year = date.getFullYear();
         month = date.getMonth();
-        lastDay = monthLastDay(month);
+        lastDay = monthLastDay(year, month);
         firstDayDay = date.getDay();
 
         lastDayDate = new Date(year, month, lastDay);
