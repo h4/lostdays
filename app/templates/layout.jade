@@ -1,12 +1,3 @@
 div.page
     header.page-header
     section.month
-        header.weekdays
-            each day in ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat']
-                div.weekday= day
-        section.days
-            each week in days
-                section.week
-                    each day in week
-                        article.day
-                            h2.date= day
