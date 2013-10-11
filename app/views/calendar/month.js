@@ -2,11 +2,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'views/calendar/day',
     'utils/monthGenerator',
     'jade!templates/calendar/month'
-], function ($, _, Backbone, monthGenerator, template) {
+], function ($, _, Backbone, DayView, monthGenerator, template) {
     return Backbone.View.extend({
         el: 'section.month',
+        popupOpened: false,
 
         initialize: function(options) {
             this.year = options.year;
@@ -20,12 +22,25 @@ define([
         },
 
         addEvent: function(e) {
-            var $day = $(e.target);
+            var $day;
+            var dayView;
 
-            this.eventsCollection.add({
-                date: $day.data('date'),
-                title: $.now()
-            });
+            if (!this.popupOpened) {
+                this.popupOpened = true;
+
+                $day = $(e.target);
+                    dayView = new DayView({
+                    collection: this.eventsCollection,
+                    ts: $day.data('date')
+                });
+
+                dayView.render().$el.appendTo($day);
+                dayView.on('dayView:destroyed', _.bind(function() {
+                    this.popupOpened = false;
+
+                    console.log(this.eventsCollection.toJSON());
+                }, this));
+            }
         },
 
         render: function() {
