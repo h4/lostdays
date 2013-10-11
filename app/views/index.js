@@ -19,7 +19,7 @@ define([
 
             headerView = new HeaderView();
             headerView.render();
-            monthView = new MonthView();
+            monthView = new MonthView({year: 2013, month: 9});
             monthView.render();
 
             return this;

@@ -8,8 +8,9 @@ define([
     return Backbone.View.extend({
         el: 'section.month',
 
-        initialize: function() {
-
+        initialize: function(options) {
+            this.year = options.year;
+            this.month = options.month;
         },
 
         render: function() {
@@ -23,7 +24,9 @@ define([
             }
 
             htmlData = {
-                days: monthGenerator.getMonth(2013, 9)
+                days: monthGenerator.getMonth(this.year, this.month),
+                month: this.month,
+                year: this.year
             };
 
             this.$el.html(template(htmlData));
