@@ -13,8 +13,6 @@ define([
         initialize: function(options) {
             this.year = options.year;
             this.month = options.month;
-
-            this.eventsCollection = options.eventsCollection;
         },
 
         events: {
@@ -30,15 +28,13 @@ define([
 
                 $day = $(e.target);
                     dayView = new DayView({
-                    collection: this.eventsCollection,
+                    collection: this.collection,
                     ts: $day.data('date')
                 });
 
                 dayView.render().$el.appendTo($day);
                 dayView.on('dayView:destroyed', _.bind(function() {
                     this.popupOpened = false;
-
-                    console.log(this.eventsCollection.toJSON());
                 }, this));
             }
         },

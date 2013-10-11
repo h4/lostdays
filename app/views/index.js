@@ -13,7 +13,7 @@ define([
         el: '.app',
 
         initialize: function() {
-            this.eventsCollection = new EventsCollection();
+            this.collection = new EventsCollection();
         },
 
         render: function() {
@@ -27,7 +27,7 @@ define([
             monthView = new MonthView({
                 year: 2013,
                 month: 9,
-                eventsCollection: this.eventsCollection
+                collection: this.collection
             });
             monthView.render();
 
