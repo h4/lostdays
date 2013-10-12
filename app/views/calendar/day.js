@@ -27,6 +27,8 @@ define([
                     text: $input.val()
                 });
 
+                this.collection.saveAll();
+
                 this.close();
             }
         },

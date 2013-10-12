@@ -14,6 +14,8 @@ define([
 
         initialize: function() {
             this.collection = new EventsCollection();
+
+            this.collection.fetch();
         },
 
         render: function() {
