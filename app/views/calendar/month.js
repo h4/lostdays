@@ -40,15 +40,6 @@ define([
         },
 
         render: function() {
-            var daysArr = [[], [], [], [], []];
-            var i=31;
-            var htmlData;
-
-            while (i) {
-                daysArr[Math.ceil(i/7)-1].unshift(i);
-                i--;
-            }
-
             htmlData = {
                 days: monthGenerator.getMonth(this.year, this.month),
                 month: this.month,
