@@ -37,12 +37,14 @@ define([
 
         expand: function() {
             this.$('.eventText').toggleClass('.eventText-expanded');
+            return this;
         },
 
         render: function() {
             var templateData = _.extend({}, this.model.toJSON(), this.options);
 
             this.$el.html(template(this.model.toJSON(templateData)));
+            return this;
         }
     });
 });
