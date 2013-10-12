@@ -25,7 +25,7 @@ define([
 
             if (!this.popupOpened) {
                 this.popupOpened = true;
-                $day = $(e.target);
+                $day = $(e.currentTarget);
 
                 dayView = new DayView({
                     collection: this.collection,
