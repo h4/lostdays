@@ -13,14 +13,14 @@ define([
             this.sync('update', this);
         },
 
-        getByMonth: function(month, year) {
+        getByMonth: function(year, month) {
             return this.filter(function(model) {
                 var dateArr = model.get('date').split('-');
                 return dateArr[0] == year && dateArr[1] == month;
             });
         },
 
-        getbyDay: function(day, month, year) {
+        getByDay: function(year, month, day) {
             return this.filter(function(model) {
                 return model.get('date') === year + "-" + month + "-" + day;
             });
