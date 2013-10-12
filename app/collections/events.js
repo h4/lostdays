@@ -7,8 +7,23 @@ define([
     return Backbone.Collection.extend({
         model: EventModel,
 
+        comparator: 'date',
+
         saveAll: function() {
             this.sync('update', this);
+        },
+
+        getByMonth: function(month, year) {
+            return this.filter(function(model) {
+                var dateArr = model.get('date').split('-');
+                return dateArr[0] == year && dateArr[1] == month;
+            });
+        },
+
+        getbyDay: function(day, month, year) {
+            return this.filter(function(model) {
+                return model.get('date') === year + "-" + month + "-" + day;
+            });
         },
 
         sync: function(method, collection) {
