@@ -9,7 +9,7 @@ define([
 ], function ($, _, Backbone, DayView, EventView, monthGenerator, template) {
     return Backbone.View.extend({
         el: 'section.month',
-        popupOpened: false,
+        popupIsOpen: false,
 
         initialize: function(options) {
             this.year = options.year;
@@ -29,8 +29,8 @@ define([
             var $day;
             var dayView;
 
-            if (!this.popupOpened) {
-                this.popupOpened = true;
+            if (!this.popupIsOpen) {
+                this.popupIsOpen = true;
                 $day = $(e.currentTarget);
 
                 dayView = new DayView({
@@ -40,7 +40,7 @@ define([
 
                 dayView.render().$el.appendTo($day);
                 dayView.on('dayView:destroyed', _.bind(function() {
-                    this.popupOpened = false;
+                    this.popupIsOpen = false;
                 }, this));
             }
         },
