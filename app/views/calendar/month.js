@@ -3,9 +3,10 @@ define([
     'underscore',
     'backbone',
     'views/calendar/day',
+    'views/event',
     'utils/monthGenerator',
     'jade!templates/calendar/month'
-], function ($, _, Backbone, DayView, monthGenerator, template) {
+], function ($, _, Backbone, DayView, EventView, monthGenerator, template) {
     return Backbone.View.extend({
         el: 'section.month',
         popupOpened: false,
@@ -13,6 +14,8 @@ define([
         initialize: function(options) {
             this.year = options.year;
             this.month = options.month;
+
+            this.currentEvents = this.collection.getByMonth(this.year, this.month);
         },
 
         events: {
@@ -39,6 +42,18 @@ define([
             }
         },
 
+        showEvents: function() {
+            var eventView;
+
+            this.currentEvents.forEach(_.bind(function(elem) {
+                eventView = new EventView({
+                    canDestroy: false,
+                    canExpand: false,
+                    model: elem
+                }).render().$el.appendTo(this.$('.day[data-date="' + elem.get('date') + '"]').find('.events'));
+            }));
+        },
+
         render: function() {
             htmlData = {
                 days: monthGenerator.getMonth(this.year, this.month),
@@ -47,6 +62,7 @@ define([
             };
 
             this.$el.html(template(htmlData));
+            this.showEvents();
 
             return this;
         }
