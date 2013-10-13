@@ -2,58 +2,10 @@
 
 define([
     'jquery',
-    'underscore'
-], function ($, _) {
-    function timeToDays(time) {
-        return time/1000/60/60/24;
-    }
-
-    function getWeekNumber(date, startOnMonday) {
-        startOnMonday = startOnMonday ? 1 : 0;
-        var weekNumber;
-        var yearStart;
-        var ts;
-
-        if (_.isDate(date)) {
-            ts = new Date(date);
-        } else {
-            ts = date ? new Date(date) : new Date();
-        }
-
-        yearStart = new Date(ts.getFullYear(), 0, 1);
-
-        ts.setHours(0, 0, 0);
-        ts.setDate(ts.getDate() + 4 - (ts.getDay()||(startOnMonday && 7)));
-
-        weekNumber = Math.floor((timeToDays(ts - yearStart) + 1) / 7);
-
-        return weekNumber;
-    }
-
-    function monthLastDay(year, month) {
-        var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-        if (isLeap(year)) {
-            days[1] = 29;
-        }
-
-        return days[month];
-    }
-
-    function isLeap(year) {
-        if (year % 4 !== 0) {
-            return false;
-        }
-        return (year % 100 === 0) && (year % 400 === 0);
-    }
-
-    function getNextMonth(month) {
-        return (month === 11) ? 0 : month + 1;
-    }
-
-    function getPrevMonth(month) {
-        return (month === 0) ? 11 : month - 1;
-    }
+    'underscore',
+    'utils/date'
+], function ($, _, DateUtil) {
+    var dateUtil = new DateUtil();
 
     function MonthGenerator() {
         this.maxSize = 50;
@@ -110,10 +62,10 @@ define([
         firstDayDate = new Date(year, month, 1);
         firstDayWeekDay = firstDayDate.getDay();
 
-        lastDay = monthLastDay(year, month);
+        lastDay = dateUtil.monthLastDay(year, month);
         lastDayDate = new Date(year, month, lastDay);
 
-        weeks = getWeekNumber(lastDayDate) - getWeekNumber(firstDayDate) + 1;
+        weeks = dateUtil.getWeekNumber(lastDayDate) - dateUtil.getWeekNumber(firstDayDate) + 1;
 
         for (i=0; i < weeks; i++) {
             daysArray[i] = [];
@@ -154,6 +106,8 @@ define([
         var result;
         var prevMonth;
         var nextMonth;
+        var prevMonthYear = (month == 0) ? year - 1 : year;
+        var nextMonthYear = (month == 11) ? Number(year) + 1 : year;
         var prevMonthLastWeek;
 
         if (_.isDate(year)) {
@@ -165,8 +119,8 @@ define([
         result = this._getMonthObjects(year, month, true);
 
         if (withSiblings) {
-            prevMonth = this._getMonthObjects(year, getPrevMonth(month), false);
-            nextMonth = this._getMonthObjects(year, getNextMonth(month), false);
+            prevMonth = this._getMonthObjects(prevMonthYear, dateUtil.getPrevMonth(month), false);
+            nextMonth = this._getMonthObjects(nextMonthYear, dateUtil.getNextMonth(month), false);
             prevMonthLastWeek = prevMonth[prevMonth.length-1];
 
             _.forEach(result[0], function(day, index, arr) {
