@@ -43,7 +43,7 @@ define([
         render: function() {
             var templateData = _.extend({}, this.model.toJSON(), this.options);
 
-            this.$el.html(template(this.model.toJSON(templateData)));
+            this.$el.html(template(templateData));
             return this;
         }
     }, {
