@@ -8,26 +8,53 @@ define([
     return Backbone.Router.extend({
         initialize: function(params) {
             this.params = params;
+            var date = new Date();
+
+            this.year = date.getFullYear()
+            this.month = date.getMonth();
+
+            Backbone.on('app:nextMonth', function(){
+                this.month++;
+
+                if (this.month == 12) {
+                    this.month = 0;
+                    this.year++;
+                }
+
+                this.navigate(this.year + '/' + (this.month + 1) + '/',
+                    {trigger: true});
+            }, this);
+
+            Backbone.on('app:prevMonth', function(){
+                this.month--;
+
+                if (this.month < 0) {
+                    this.month = 11;
+                    this.year--;
+                }
+
+                this.navigate(this.year + '/' + (this.month + 1) + '/',
+                    {trigger: true});
+            }, this);
         },
 
-        index: function() {
-            var indexView = new IndexView();
+        monthRoute: function(year, month) {
+            if (year && month) {
+                this.year = year;
+                this.month = month - 1;
+            }
 
-            indexView.render();
-        },
-
-        month: function(year, month) {
             var indexView = new IndexView({
-                year: year,
-                month: month
+                year: this.year,
+                month: this.month
             });
 
             indexView.render();
         },
 
         routes: {
-            '': 'index',
-            'year:/month:': 'month'
+            '': 'monthRoute',
+            ':year/:month/': 'monthRoute'
         }
     });
 });

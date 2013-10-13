@@ -14,8 +14,6 @@ define([
                 pushState: true
             });
 
-            Backbone.history.navigate('', {trigger: true});
-
             Backbone.on("domchange:title", function(title) {
                 $(document).attr('title', title);
             });

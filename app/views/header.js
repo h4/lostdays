@@ -24,8 +24,8 @@ define([
 
         initialize: function(options) {
             options = options || {};
-            this._year = options.year || (new Date).getFullYear();
-            this._month = options.month || (new Date).getMonth();
+            this.year = options.year;
+            this.month = options.month;
         },
 
         events: {
@@ -43,8 +43,8 @@ define([
 
         render: function() {
             var htmlData = {
-                year: this._year,
-                month: months[this._month]
+                year: this.year,
+                month: months[this.month]
             };
 
             this.$el.html(template(htmlData));

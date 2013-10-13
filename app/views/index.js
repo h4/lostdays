@@ -17,7 +17,8 @@ define([
             var date = new Date();
 
             this.year = options.year || date.getFullYear();
-            this.month = options.month || date.getMonth();
+            this.month = _.isUndefined(options.month) ?
+                date.getMonth() : options.month;
 
             this.collection = new EventsCollection();
             this.collection.fetch();
