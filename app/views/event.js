@@ -4,7 +4,7 @@ define([
     'backbone',
     'jade!templates/event'
 ], function ($, _, Backbone, template) {
-    return Backbone.View.extend({
+    var Events = Backbone.View.extend({
         tagName: "article",
         className: "event",
 
@@ -48,7 +48,9 @@ define([
         }
     }, {
         renderEvent: function(params) {
-            return (new this(params)).render();
+            return (new Events(params)).render();
         }
     });
+
+    return Events;
 });
