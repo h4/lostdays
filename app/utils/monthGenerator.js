@@ -56,8 +56,39 @@ define([
     }
 
     function MonthGenerator() {
+        this.maxSize = 50;
+        this.sizeTreshold = 10;
+        this.dropOnClean = 30;
+        this.itemTTL = 1800000; // 30 min
         this.monthsCache = {};
     }
+
+    MonthGenerator.prototype._clean = function() {
+        this._cleanByTime();
+
+        if (_.size(this.monthsCache) > this.maxSize) {
+            this._cleanBySize();
+        }
+    };
+
+    MonthGenerator.prototype._cleanByTime = function() {
+        var now = $.now();
+
+        _.forEach(this.monthsCache, function(item, index, list) {
+            if (item.lastCall <  now - this.itemTTL) {
+                delete list[index];
+            }
+        }, this);
+    };
+
+    MonthGenerator.prototype._cleanBySize = function() {
+        _.chain(this.monthsCache)
+            .sortBy(function(item) {return item.lastCall})
+            .first(this.dropOnClean)
+            .forEach(function(item) {
+                delete this.monthsCache[item.id];
+            }, this);
+    };
 
     MonthGenerator.prototype._generateDaysArray = function(year, month) {
         var i;
@@ -69,7 +100,11 @@ define([
         var firstDayWeekDay;
 
         if (this.monthsCache[year + '' + month]) {
-            return this.monthsCache[year + '' + month];
+            this.monthsCache[year + '' + month].lastCall = $.now();
+            if (_.size(this.monthsCache) > this.maxSize + this.sizeTreshold) {
+                this._clean();
+            }
+            return this.monthsCache[year + '' + month].data;
         }
 
         firstDayDate = new Date(year, month, 1);
@@ -90,7 +125,11 @@ define([
 
         daysArray[weeks-1].length = 7;
 
-        this.monthsCache[year + '' + month] = daysArray;
+        this.monthsCache[year + '' + month] = {
+            id: year + '' + month,
+            data: daysArray,
+            lastCall: $.now()
+        };
 
         return daysArray;
     };
