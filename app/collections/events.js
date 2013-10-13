@@ -4,7 +4,7 @@ define([
     'backbone',
     'models/event'
 ], function ($, _, Backbone, EventModel) {
-    return Backbone.Collection.extend({
+    var Events = Backbone.Collection.extend({
         model: EventModel,
         comparator: 'date',
 
@@ -14,6 +14,14 @@ define([
 
         saveAll: function() {
             this.sync('update', this);
+        },
+
+        getBetweenDates: function(begin, end) {
+            begin = _.isDate(begin) ? begin : Events.stringToTimestamp(begin);
+            end = _.isDate(end) ? end : Events.stringToTimestamp(end);
+            return this.filter(function(model) {
+                return begin <= model.get('ts') <= end;
+            });
         },
 
         getByMonth: function(year, month) {
@@ -41,9 +49,18 @@ define([
             }
             if (method == 'create' || 'update') {
                 if ('localStorage' in window) {
-                    localStorage.setItem('events', JSON.stringify(collection.toJSON()));
+                    localStorage.setItem('events',
+                        JSON.stringify(collection.toJSON()));
                 }
             }
         }
+    }, {
+        stringToTimestamp: function(str) {
+            var dateArr = str.split("-");
+
+            return (new Date(dateArr[0], dateArr[1], dateArr[2])).getTime();
+        }
     });
+
+    return Events;
 });

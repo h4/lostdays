@@ -15,8 +15,9 @@ define([
             this.year = options.year;
             this.month = options.month;
 
-            this.currentEvents = this.collection.getByMonth(this.year, this.month);
-
+            this.days = monthGenerator.getMonth(this.year, this.month, true);
+            this.currentEvents = this.collection.getBetweenDates(
+                this.days[0][0].date, _.last(_.last(this.days)).date);
             this.collection.on('add', this.addNewEvent, this);
         },
 
@@ -53,12 +54,13 @@ define([
                 canDestroy: false,
                 canExpand: false,
                 model: model
-            }).$el.appendTo(this.$('.day[data-date="' + model.get('date') + '"]').find('.events'));
+            }).$el.appendTo(this.$('.day[data-date="' + model.get('date') + '"]')
+                    .find('.events'));
         },
 
         render: function() {
             var htmlData = {
-                days: monthGenerator.getMonth(this.year, this.month, true),
+                days: this.days,
                 month: this.month,
                 year: this.year
             };
