@@ -49,11 +49,11 @@ define([
         },
 
         addNewEvent: function(model) {
-            new EventView({
+            EventView.renderEvent({
                 canDestroy: false,
                 canExpand: false,
                 model: model
-            }).render().$el.appendTo(this.$('.day[data-date="' + model.get('date') + '"]').find('.events'));
+            }).$el.appendTo(this.$('.day[data-date="' + model.get('date') + '"]').find('.events'));
         },
 
         render: function() {

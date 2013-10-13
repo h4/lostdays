@@ -53,17 +53,23 @@ define([
             this.remove();
         },
 
+        addNewEvent: function (model) {
+            EventView.renderEvent({
+                canDestroy: true,
+                canExpand: true,
+                model: model
+            }).$el.appendTo(this.$('.events'));
+        },
+
+        addExistedEvents: function () {
+            this.todayEvents.forEach(_.bind(
+                this.addNewEvent, this));
+        },
+
         render: function() {
             this.$el.html(template());
-            var eventView;
 
-            this.todayEvents.forEach(_.bind(function(elem) {
-                eventView = new EventView({
-                    canDestroy: true,
-                    canExpand: true,
-                    model: elem
-                }).render().$el.appendTo(this.$('.events'));
-            }, this));
+            this.addExistedEvents();
 
             this.bindEscape();
 

@@ -46,5 +46,9 @@ define([
             this.$el.html(template(this.model.toJSON(templateData)));
             return this;
         }
+    }, {
+        renderEvent: function(params) {
+            return (new this(params)).render();
+        }
     });
 });
