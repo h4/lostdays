@@ -58,7 +58,7 @@ define([
 
         render: function() {
             var htmlData = {
-                days: monthGenerator.getMonth(this.year, this.month),
+                days: monthGenerator.getMonth(this.year, this.month, true),
                 month: this.month,
                 year: this.year
             };
