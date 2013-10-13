@@ -20,10 +20,10 @@ define([
             ts = date ? new Date(date) : new Date();
         }
 
+        yearStart = new Date(ts.getFullYear(), 0, 1);
+
         ts.setHours(0, 0, 0);
         ts.setDate(ts.getDate() + 4 - (ts.getDay()||(startOnMonday && 7)));
-
-        yearStart = new Date(ts.getFullYear(), 0, 1);
 
         weekNumber = Math.floor((timeToDays(ts - yearStart) + 1) / 7);
 
@@ -45,6 +45,14 @@ define([
             return false;
         }
         return (year % 100 === 0) && (year % 400 === 0);
+    }
+
+    function getNextMonth(month) {
+        return (month === 11) ? 0 : month + 1;
+    }
+
+    function getPrevMonth(month) {
+        return (month === 0) ? 11 : month - 1;
     }
 
     function MonthGenerator() {
@@ -118,8 +126,8 @@ define([
         result = this._getMonthObjects(year, month, true);
 
         if (withSiblings) {
-            prevMonth = this._getMonthObjects(year, month-1, false);
-            nextMonth = this._getMonthObjects(year, month+1, false);
+            prevMonth = this._getMonthObjects(year, getPrevMonth(month), false);
+            nextMonth = this._getMonthObjects(year, getNextMonth(month), false);
             prevMonthLastWeek = prevMonth[prevMonth.length-1];
 
             _.forEach(result[0], function(day, index, arr) {
