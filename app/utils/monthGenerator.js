@@ -95,7 +95,7 @@ define([
             return _.map(week, function(day) {
                 return {
                     day: day,
-                    date: day + "-" + month + "-" + year,
+                    date: year + "-" + month + "-" + day,
                     today: day === today,
                     monthIsCurrent: isCurrent
                 }
