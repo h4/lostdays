@@ -6,8 +6,11 @@ define([
 ], function ($, _, Backbone, EventModel) {
     return Backbone.Collection.extend({
         model: EventModel,
-
         comparator: 'date',
+
+        initialize: function() {
+            this.on('destroy', this.saveAll, this);
+        },
 
         saveAll: function() {
             this.sync('update', this);
