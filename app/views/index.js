@@ -12,9 +12,14 @@ define([
     return Backbone.View.extend({
         el: '.app',
 
-        initialize: function() {
-            this.collection = new EventsCollection();
+        initialize: function(options) {
+            options = options || {};
+            var date = new Date();
 
+            this.year = options.year || date.getFullYear();
+            this.month = options.month || date.getMonth();
+
+            this.collection = new EventsCollection();
             this.collection.fetch();
         },
 
@@ -24,11 +29,14 @@ define([
 
             this.$el.html(layoutTemplate());
 
-            headerView = new HeaderView();
+            headerView = new HeaderView({
+                year: this.year,
+                month: this.month
+            });
             headerView.render();
             monthView = new MonthView({
-                year: 2013,
-                month: 9,
+                year: this.year,
+                month: this.month,
                 collection: this.collection
             });
             monthView.render();

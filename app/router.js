@@ -10,12 +10,24 @@ define([
             this.params = params;
         },
 
-        routes: {
-            '': function() {
-                var indexView = new IndexView();
+        index: function() {
+            var indexView = new IndexView();
 
-                indexView.render();
-            }
+            indexView.render();
+        },
+
+        month: function(year, month) {
+            var indexView = new IndexView({
+                year: year,
+                month: month
+            });
+
+            indexView.render();
+        },
+
+        routes: {
+            '': 'index',
+            'year:/month:': 'month'
         }
     });
 });
