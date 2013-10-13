@@ -11,6 +11,10 @@ define([
         initialize: function(options) {
             this.ts = options.ts;
             this.tsArr = this.ts.split("-");
+
+            this.todayEvents = this.collection.getByDay.apply(
+                this.collection, this.tsArr
+            );
         },
 
         events: {
@@ -51,10 +55,9 @@ define([
 
         render: function() {
             this.$el.html(template());
-            var todayEvents = this.collection.getByDay.apply(this.collection, this.tsArr);
             var eventView;
 
-            todayEvents.forEach(_.bind(function(elem) {
+            this.todayEvents.forEach(_.bind(function(elem) {
                 eventView = new EventView({
                     canDestroy: true,
                     canExpand: true,
