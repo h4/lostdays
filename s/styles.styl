@@ -38,8 +38,10 @@ h3
   align-items center
   height 68px
   border-bottom solid 1px #bec3cf
-  background-cozlor #f2f3f6
+  background-color #f2f3f6
   background-image -webkit-linear-gradient(top, #FFF, #e4e6ec)
+  background-image -moz-linear-gradient(top, #FFF, #e4e6ec)
+  background-image linear-gradient(top, #FFF, #e4e6ec)
   border-radius 3px 3px 0 0
 
 .page-title
@@ -52,6 +54,7 @@ h3
 pager()
   position relative
   display block
+  -moz-box-sizing border-box
   box-sizing border-box
   width 37px
   height 37px
@@ -105,6 +108,8 @@ pager()
   text-shadow 0 1px 1px rgba(#FFF, 1)
   background-color  #d2d5db
   background-image -webkit-linear-gradient(top, #ccced2, #d1d4db)
+  background-image -moz-linear-gradient(top, #ccced2, #d1d4db)
+  background-image linear-gradient(top, #ccced2, #d1d4db)
   border solid 1px
   border-color  #bec3cf #c4c7cd #bec3cf #d8dbe1
   border-top-style none
@@ -138,6 +143,7 @@ pager()
   position relative
   flex: 1 0 0
   margin 1px 1px 0 0
+  -moz-box-sizing border-box
   box-sizing border-box
   padding 8px
   background #FFF
@@ -181,16 +187,22 @@ pager()
     right 0
     height 5px
     background-image -webkit-linear-gradient(top, rgba(#FFF, 0), #FFF)
+    background-image -moz-linear-gradient(top, rgba(#FFF, 0), #FFF)
+    background-image linear-gradient(top, rgba(#FFF, 0), #FFF)
 
 .day__active_false
   .events
     &::after
       background-image -webkit-linear-gradient(top, rgba(#f7f7f7, 0), #f7f7f7)
+      background-image -moz-linear-gradient(top, rgba(#f7f7f7, 0), #f7f7f7)
+      background-image linear-gradient(top, rgba(#f7f7f7, 0), #f7f7f7)
 
 .day__current_true
   .events
     &::after
       background-image -webkit-linear-gradient(top, rgba(#fffff4, 0), #fffff4)
+      background-image -moz-linear-gradient(top, rgba(#fffff4, 0), #fffff4)
+      background-image linear-gradient(top, rgba(#fffff4, 0), #fffff4)
 
 .event
   position relative
@@ -199,11 +211,14 @@ pager()
   padding 1px 7px 3px
   background-color #7793d0
   background-image -webkit-linear-gradient(top, #7793d0 0%, #7793d0 50%, #728dc5 50%, #728dc5 100%)
+  background-image -moz-linear-gradient(top, #7793d0 0%, #7793d0 50%, #728dc5 50%, #728dc5 100%)
+  background-image linear-gradient(top, #7793d0 0%, #7793d0 50%, #728dc5 50%, #728dc5 100%)
   border-radius 3px
 
   .closer
     font-size: 2px
     position absolute
+    -moz-box-sizing border-box
     box-sizing border-box
     padding 5px
     width 11px
@@ -213,6 +228,7 @@ pager()
     background url(/i/closer.png) center no-repeat
     opacity 0
     -webkit-transition: opacity .4s
+    transition: opacity .4s
     cursor pointer
 
 
@@ -221,17 +237,16 @@ pager()
   white-space nowrap
   overflow hidden
   text-overflow ellipsis
-  text-shadow 0 1px 1px #FFF
-  background #333
-  -webkit-background-clip: text
+  text-shadow 0 -1px 1px #333
   background-clip: text
-  color transparent
+  color #FFF
 
 .dayPopup
   position absolute
   z-index 10
   left 100%
-  top: 50%
+  top 50%
+  -moz-box-sizing border-box
   box-sizing border-box
   width 227px
   margin-left 4px
@@ -241,8 +256,11 @@ pager()
   border-radius 5px
   box-shadow 1px 1px 3px rgba(#999, 0.3)
   -webkit-animation show 0.7s 1
+  animation show 0.7s 1
   -webkit-transform-origin left top
+  transform-origin left top
   -webkit-transform translate(0, -50%)
+  transform translate(0, -50%)
 
   .events
     position static
@@ -251,6 +269,8 @@ pager()
 
   .event:hover
     background-image -webkit-linear-gradient(top, #7591cd 0%, #7591cd 50%, #708ac2 50%, #708ac2 100%)
+    background-image -moz-linear-gradient(top, #7591cd 0%, #7591cd 50%, #708ac2 50%, #708ac2 100%)
+    background-image linear-gradient(top, #7591cd 0%, #7591cd 50%, #708ac2 50%, #708ac2 100%)
 
     .closer
       opacity 1
@@ -265,9 +285,11 @@ pager()
   border solid 1px #d8d8d8
   border-style none none solid solid
   -webkit-transform rotate(45deg) translate(-5px, -3px)
+  transform rotate(45deg) translate(-5px, -3px)
 
 .eventDescription {
   font: 10px Verdana, sans-serif
+  -moz-box-sizing border-box
   box-sizing border-box
   width 100%
   height 100px
@@ -289,4 +311,30 @@ pager()
 
   100%
     -webkit-transform scale(1) translate(0, -50%)
+    opacity 1
+
+@-moz-keyframes show
+  0%
+    -moz-transform scale(.1) translate(0, 0)
+    opacity .3
+
+  90%
+    -moz-transform scale(1.1) translate(0, -50%)
+    opacity 1
+
+  100%
+    -moz-transform scale(1) translate(0, -50%)
+    opacity 1
+
+@keyframes show
+  0%
+    transform scale(.1) translate(0, 0)
+    opacity .3
+
+  90%
+    transform scale(1.1) translate(0, -50%)
+    opacity 1
+
+  100%
+    transform scale(1) translate(0, -50%)
     opacity 1
