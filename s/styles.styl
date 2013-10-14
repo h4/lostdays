@@ -180,7 +180,17 @@ pager()
     left 0
     right 0
     height 5px
-    background-image -webkit-linear-gradient(top, rgba(#FFF,0), #FFF)
+    background-image -webkit-linear-gradient(top, rgba(#FFF, 0), #FFF)
+
+.day__active_false
+  .events
+    &::after
+      background-image -webkit-linear-gradient(top, rgba(#f7f7f7, 0), #f7f7f7)
+
+.day__current_true
+  .events
+    &::after
+      background-image -webkit-linear-gradient(top, rgba(#fffff4, 0), #fffff4)
 
 .event
   position relative
