@@ -58,6 +58,20 @@ define([
                     .find('.events'));
         },
 
+        countEvents: function() {
+            this.$('.day').each(function(index, elem) {
+                var $elem = $(elem);
+                var count = $elem.find('.event').length;
+                var $counter = $elem.find('.events-counter');
+
+                if (count > 1) {
+                    $counter.text(count + " events");
+                } else {
+                    $counter.text = "&nbsp;";
+                }
+            });
+        },
+
         render: function() {
             var htmlData = {
                 days: this.days,
@@ -67,6 +81,7 @@ define([
 
             this.$el.html(template(htmlData));
             this.addExistedEvents();
+            this.countEvents();
 
             return this;
         }
