@@ -39,7 +39,13 @@ define([
             }
         },
 
+        clickHandler: function(e) {
+            e.stopPropagation();
+        },
+
         bindEscape: function() {
+            $('body').one('click', _.bind(this.close, this));
+
             $('body').on("keyup.dayPopup", _.bind(function(e) {
                 if (e.keyCode === 27) {
                     this.close();

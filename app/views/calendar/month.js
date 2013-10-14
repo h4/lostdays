@@ -30,6 +30,8 @@ define([
             var dayView;
 
             if (!this.popupIsOpen) {
+                e.stopPropagation();
+
                 this.popupIsOpen = true;
                 $day = $(e.currentTarget);
 
