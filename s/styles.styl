@@ -2,9 +2,12 @@ html
   height 100%
 
 body
+  font 12px/20px Verdana, sans-serif;
   min-height 100%
   margin 0
   padding 0
+  background url(/i/bg.png) #ececec
+  color: #3f3f3f
 
 h1
   margin 0
@@ -17,34 +20,70 @@ h3
 
 .app
   position fixed
-  top 30px
-  right 30px
-  bottom 30px
-  left 30px
+  top 7.3%
+  right 7.3%
+  bottom 7.3%
+  left 7.3%
 
 .page
   display flex
   flex-direction column
   height 100%
-  border solid 1px #b3b3b3
+  border solid 1px #b4b4b4
   border-radius 2px
 
 .page-header
   display flex
   flex-direction row
+  align-items center
+  height 68px
+  border-bottom solid 1px #bec3cf
+  background-cozlor #f2f3f6
+  background-image -webkit-linear-gradient(top, #FFF, #e4e6ec)
+  border-radius 2px 2px 0 0
 
 .page-title
+  font: bold 28px/1 Helvetica, Arial, serif;
   flex 1 0 0
   text-align center
   order 1
+  color #717f9d
+
+pager()
+  position relative
+  display block
+  box-sizing border-box
+  width 37px
+  height 37px
+  margin 21px
+  padding 5px
+  cursor pointer
+
+  &:hover
+    opacity .8
+
+  &:active
+    top: 2px
+
+  &::before
+    content ""
+    position absolute
+    left 0
+    right 0
+    top 0
+    bottom 0
 
 .pager-prev
+  pager()
   order 0
-  display block
+  &::before
+    background url(/i/arr_prev.png)
 
 .pager-next
+  pager()
   order 3
-  display block
+  &::before
+    background url(/i/arr_next.png)
 
 .month
   display flex
